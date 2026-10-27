@@ -17,11 +17,15 @@ class CollectExchangeRates:
         collector: ExchangeRateCollector,
         exporter: ExchangeRateExporter,
     ) -> None:
+        """Inicializa o caso de uso com suas portas de entrada e saída."""
         self._collector = collector
         self._exporter = exporter
 
     def execute(self, destination: Path) -> int:
         """Executa a coleta e exporta os resultados.
+
+        Args:
+            destination: Caminho de destino da exportação.
 
         Returns:
             Quantidade de cotações exportadas.

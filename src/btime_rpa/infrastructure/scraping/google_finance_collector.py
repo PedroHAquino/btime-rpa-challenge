@@ -11,11 +11,14 @@ from btime_rpa.domain.ports.exchange_rate_collector import ExchangeRateCollector
 
 
 class GoogleFinanceCollector(ExchangeRateCollector):
+    """Coleta cotações de moedas a partir do Google Finance."""
+
     BASE_URL = "https://www.google.com/finance/quote"
     PRICE_SELECTOR = 'div.N6SYTe span[jsname="Pdsbrc"]'
     CURRENCIES = ("USD", "EUR")
 
     def __init__(self, session: requests.Session | None = None):
+        """Configura a sessão HTTP e sua política de repetição."""
         self.session = session or requests.Session()
 
         self.session.headers.update({
@@ -42,9 +45,16 @@ class GoogleFinanceCollector(ExchangeRateCollector):
 
             self.session.mount("https://", adapter)
             self.session.mount("http://", adapter)
-
-
     def collect(self) -> list[ExchangeRate]:
+        """Extrai e normaliza cotações do HTML do Google Finance.
+
+        Returns:
+            Cotações de USD e EUR em relação ao BRL.
+
+        Raises:
+            RuntimeError: Se uma consulta HTTP falhar.
+            ValueError: Se o preço não estiver presente ou for inválido.
+        """
         exchange_rates = []
 
         for currency in self.CURRENCIES:

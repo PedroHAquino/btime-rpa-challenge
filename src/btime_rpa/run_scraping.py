@@ -17,6 +17,7 @@ LOGGER = logging.getLogger(__name__)
 
 
 def main() -> int:
+    """Executa a coleta via scraping e retorna o código de saída."""
     logging.basicConfig(
         level=logging.INFO,
         format="%(levelname)s - %(message)s",

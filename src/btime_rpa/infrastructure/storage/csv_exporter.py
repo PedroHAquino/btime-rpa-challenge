@@ -24,6 +24,12 @@ class CsvExchangeRateExporter(ExchangeRateExporter):
         exchange_rates: list[ExchangeRate],
         destination: Path,
     ) -> None:
+        """Grava as cotações em CSV, criando o diretório quando necessário.
+
+        Args:
+            exchange_rates: Cotações a gravar.
+            destination: Caminho do arquivo CSV de saída.
+        """
         destination.parent.mkdir(parents=True, exist_ok=True)
 
         with destination.open(

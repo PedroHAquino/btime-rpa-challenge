@@ -9,4 +9,8 @@ class ExchangeRateCollector(ABC):
 
     @abstractmethod
     def collect(self) -> list[ExchangeRate]:
-        """Coleta e retorna cotações normalizadas."""
+        """Coleta e retorna cotações normalizadas.
+
+        Returns:
+            Cotações coletadas no formato de domínio.
+        """

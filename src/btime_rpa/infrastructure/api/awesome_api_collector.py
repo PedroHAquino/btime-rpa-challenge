@@ -8,6 +8,8 @@ from btime_rpa.domain.ports.exchange_rate_collector import ExchangeRateCollector
 
 
 class AwesomeApiCollector(ExchangeRateCollector):
+    """Obtém cotações de moedas na AwesomeAPI."""
+
     BASE_URL = (
         "https://economia.awesomeapi.com.br/json/last/"
         "USD-BRL,EUR-BRL"
@@ -16,9 +18,19 @@ class AwesomeApiCollector(ExchangeRateCollector):
     CURRENCIES = ("USD", "EUR")
 
     def __init__(self, session: requests.Session | None = None):
+        """Prepara a sessão HTTP usada nas consultas."""
         self.session = session or requests.Session()
 
     def collect(self) -> list[ExchangeRate]:
+        """Consulta e converte as cotações da API para entidades de domínio.
+
+        Returns:
+            Cotações de USD e EUR em relação ao BRL.
+
+        Raises:
+            RuntimeError: Se a consulta HTTP falhar.
+            ValueError: Se a resposta ou alguma cotação for inválida.
+        """
         try:
             response = self.session.get(
                 self.BASE_URL,

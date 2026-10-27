@@ -14,4 +14,9 @@ class ExchangeRateExporter(ABC):
         exchange_rates: list[ExchangeRate],
         destination: Path,
     ) -> None:
-        """Exporta as cotações para o destino informado."""
+        """Exporta as cotações para o destino informado.
+
+        Args:
+            exchange_rates: Cotações a exportar.
+            destination: Caminho do arquivo de saída.
+        """

@@ -6,6 +6,8 @@ from decimal import Decimal
 
 @dataclass(frozen=True, slots=True)
 class ExchangeRate:
+    """Representa uma cotação validada entre duas moedas."""
+
     currency: str
     base_currency: str
     rate: Decimal
@@ -13,6 +15,7 @@ class ExchangeRate:
     source: str
 
     def __post_init__(self) -> None:
+        """Valida os campos da cotação após sua inicialização."""
         if not self.currency or not self.base_currency:
             raise ValueError("Os códigos das moedas são obrigatórios.")
 
