@@ -1,6 +1,4 @@
-cat > README.md <<'EOF'
 # BTime RPA Challenge
-
 Desafio técnico para a vaga de Desenvolvedor RPA.
 
 ## Objetivo
