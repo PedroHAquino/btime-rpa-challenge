@@ -79,6 +79,39 @@ O script consulta a AwesomeAPI e gera:
 
 `data/api_exchange_rates.csv`
 
+
+### Script 3 — Comparação de cotações (bônus)
+
+Execute após os dois scripts de coleta:
+
+```bash
+poetry run python -m btime_rpa.run_comparison
+```
+
+O script lê os arquivos CSV gerados pela API REST e pelo Web Scraping, compara as cotações por par de moedas e gera:
+
+`data/comparison_exchange_rates.csv`
+
+O relatório apresenta:
+
+- Cotação obtida pela API.
+- Cotação obtida pelo Web Scraping.
+- Diferença absoluta entre as cotações.
+- Diferença percentual em relação à API.
+- Data e hora de coleta de cada fonte.
+- Status: `MATCHED`, `MISSING_IN_API` ou `MISSING_IN_SCRAPING`.
+
+A diferença percentual é calculada pela fórmula:
+
+`((cotacao_scraping - cotacao_api) / cotacao_api) * 100`
+
+Valores positivos indicam uma cotação maior no scraping; valores negativos indicam uma cotação menor.
+
+O comparador também identifica pares de moedas ausentes em uma das fontes.
+
+**Observação:** como as fontes podem ser consultadas em momentos diferentes, pequenas diferenças não indicam necessariamente erros nas cotações.
+
+
 ## Estrutura dos arquivos CSV
 
 Ambos os arquivos utilizam o mesmo formato:
@@ -133,7 +166,7 @@ poetry run pytest -v --cov=btime_rpa --cov-report=term-missing
 
 Resultado da última validação realizada:
 
-- **49 testes aprovados**
+- **71 testes aprovados**
 - **99% de cobertura de código**
 - **0 falhas**
 
@@ -141,7 +174,7 @@ Os testes abrangem componentes de domínio, casos de uso, adaptadores, exportaç
 
 ## Entrega
 
-O repositório contém os códigos-fonte dos dois métodos de coleta, testes automatizados e documentação.
+O repositório contém os códigos-fonte dos dois métodos de coleta, um comparador adicional de cotações, testes automatizados e documentação.
 
 Os arquivos CSV gerados devem ser incluídos na entrega para demonstrar o resultado das execuções.
 
