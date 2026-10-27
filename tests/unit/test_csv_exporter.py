@@ -1,6 +1,6 @@
 
 import csv
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from decimal import Decimal
 
 import pytest
@@ -14,7 +14,7 @@ from btime_rpa.infrastructure.storage.csv_exporter import (
 @pytest.fixture
 def exchange_rates():
     collected_at = datetime(
-        2026, 10, 26, 20, 0, tzinfo=timezone.utc
+        2026, 10, 26, 20, 0, tzinfo=UTC
     )
 
     return [
@@ -66,7 +66,7 @@ def test_export_preserves_decimal_precision(tmp_path):
         currency="USD",
         base_currency="BRL",
         rate=Decimal("5.123456789"),
-        collected_at=datetime.now(timezone.utc),
+        collected_at=datetime.now(UTC),
         source="api",
     )
 

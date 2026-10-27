@@ -1,13 +1,13 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from decimal import Decimal, InvalidOperation
-from requests.adapters import HTTPAdapter
-from urllib3.util.retry import Retry
+
 import requests
 from bs4 import BeautifulSoup
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 from btime_rpa.domain.entities.exchange_rate import ExchangeRate
 from btime_rpa.domain.ports.exchange_rate_collector import ExchangeRateCollector
-
 
 
 class GoogleFinanceCollector(ExchangeRateCollector):
@@ -15,15 +15,15 @@ class GoogleFinanceCollector(ExchangeRateCollector):
     PRICE_SELECTOR = 'div.N6SYTe span[jsname="Pdsbrc"]'
     CURRENCIES = ("USD", "EUR")
 
-    # def __init__(self, session: requests.Session | None = None):
-    #     self.session = session or requests.Session()
-    #     self.session.headers.update({"User-Agent": "Mozilla/5.0"})
-
     def __init__(self, session: requests.Session | None = None):
         self.session = session or requests.Session()
 
         self.session.headers.update({
-            "User-Agent": "BTimeRPAChallenge/1.0",
+            "User-Agent": (
+                "Mozilla/5.0 (X11; Linux x86_64) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/120.0.0.0 Safari/537.36"
+            ),
         })
 
         if session is None:
@@ -80,7 +80,7 @@ class GoogleFinanceCollector(ExchangeRateCollector):
                     currency=currency,
                     base_currency="BRL",
                     rate=rate,
-                    collected_at=datetime.now(timezone.utc),
+                    collected_at=datetime.now(UTC),
                     source="Google Finance",
                 )
             )

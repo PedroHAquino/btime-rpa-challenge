@@ -1,5 +1,5 @@
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from decimal import Decimal
 from pathlib import Path
 from unittest.mock import Mock
@@ -25,14 +25,14 @@ def exchange_rates():
             currency="USD",
             base_currency="BRL",
             rate=Decimal("5.2450"),
-            collected_at=datetime.now(timezone.utc),
+            collected_at=datetime.now(UTC),
             source="api",
         ),
         ExchangeRate(
             currency="EUR",
             base_currency="BRL",
             rate=Decimal("6.1500"),
-            collected_at=datetime.now(timezone.utc),
+            collected_at=datetime.now(UTC),
             source="api",
         ),
     ]

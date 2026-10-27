@@ -1,5 +1,5 @@
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from decimal import Decimal
 
 import pytest
@@ -13,7 +13,7 @@ def valid_data():
         "currency": "USD",
         "base_currency": "BRL",
         "rate": Decimal("5.2450"),
-        "collected_at": datetime.now(timezone.utc),
+        "collected_at": datetime.now(UTC),
         "source": "api",
     }
 
@@ -30,8 +30,8 @@ def test_create_valid_exchange_rate(valid_data):
 @pytest.mark.parametrize(
     "invalid_rate",
     [
-        Decimal("0"),
-        Decimal("-1"),
+        Decimal(0),
+        Decimal(-1),
         Decimal("NaN"),
         Decimal("Infinity"),
     ],

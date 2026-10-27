@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from decimal import Decimal, InvalidOperation
 
 import requests
@@ -57,7 +57,7 @@ class AwesomeApiCollector(ExchangeRateCollector):
                     currency=currency,
                     base_currency="BRL",
                     rate=rate,
-                    collected_at=datetime.now(timezone.utc),
+                    collected_at=datetime.now(UTC),
                     source="AwesomeAPI",
                 )
             )

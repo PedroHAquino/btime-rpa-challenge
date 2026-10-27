@@ -133,7 +133,6 @@ def test_retry_has_maximum_attempts():
 
 def test_retry_repeats_request_after_http_503(monkeypatch):
     from io import BytesIO
-    from unittest.mock import Mock
 
     from urllib3.connectionpool import HTTPSConnectionPool
     from urllib3.response import HTTPResponse
